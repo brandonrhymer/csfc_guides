@@ -35,7 +35,7 @@ The collection contains eight guides: RHEL root recovery, Cisco ASA updates, Cla
 | ESXi | Resolve the mismatch between the displayed offline depot ZIP and a dialog requesting a VIB. Confirm the supported update method for the exact host release and hardware, maintenance requirements, compatibility, and rollback. Do not execute the source sequence with the depot ZIP on assumption. |
 | GPO | Confirm the package, backup/import format, target OU, inheritance, security filtering, conflicts, test scope, and rollback. An imported GPO has no intended effect until its scope is correctly established and policy refresh occurs. |
 | GP 2.0 | Identify the product, operating system, approved test destination, service unit, and CLI. The source provides three commands but no expected output, interpretation, or escalation criteria. Those product-specific inputs remain missing; do not guess them. |
-| LDAPS | The source string has been repaired. In the later review, validate the certificate requirements, names, trust chain, EKU, lifetime, private-key handling, and service selection. A locally created self-signed certificate alone does not establish a working, trusted LDAPS service. |
+| LDAPS | The source string has been repaired. Provider and key specification are now explicit approved-design inputs because the original cmdlet defaults do not match the cited Schannel CSP workflow. Resolve the target-specific issuance method before use. In the later review, validate the certificate requirements, names, trust chain, EKU, lifetime, private-key handling, and service selection. A locally created self-signed certificate alone does not establish a working, trusted LDAPS service. |
 
 ## Editorial and technical changes
 
@@ -44,7 +44,7 @@ The collection contains eight guides: RHEL root recovery, Cisco ASA updates, Cla
 - Scoped the recovery procedure to RHEL 9 and used the relabel-marker flow. Removed the original policy-load and manual-context sequence from the operational steps. The enforcement-disable workaround is not prescribed.
 - Separated ASA transfer, integrity verification, boot configuration, save, and reload into distinct stages. The old boot entry must not be removed without an approved rollback plan.
 - Preserved the ESXi UI sequence only as a review reference. Added an offline-depot profile-listing example and a warning that profile update and install are different operations. The host-specific update method remains unresolved.
-- Corrected the LDAP example's missing closing quote and parameterized its duration and label. The example remains incomplete as a deployment design and requires PKI review.
+- Corrected the LDAP example's missing closing quote and parameterized its duration and label. Added explicit provider and key-specification inputs, documented the mismatch with the cited Schannel CSP workflow, and required an approved target-specific issuance design before use. The example remains incomplete as a deployment design and requires PKI review.
 - Added planned ClamAV database and running-service checks, a CPU Ready conversion example, ASA platform boundaries, GPO import and rollback cautions, and an LDAPS client test description. These are documentation additions, not test results.
 - Replaced missing-image references with text. This is a text-only conversion, not a visually equivalent reproduction.
 - Added a root entry point and contribution guidance. Script-specific documentation remains with the script in the scripts repository.
