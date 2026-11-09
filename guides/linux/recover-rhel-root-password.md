@@ -1,10 +1,10 @@
-# Recover a RHEL root password
+# Recover a RHEL 9 root password
 
-**Status:** Technical and release review required. This procedure changes authentication state and requires an approved maintenance window.
+**Status:** Technical review draft. Lab validation required. This procedure changes authentication state and requires an approved maintenance window.
 
 ## Scope
 
-Recover access to a RHEL virtual machine through its console when an authorized administrator cannot use the existing root password. The exact recovery and SELinux steps depend on the RHEL release and system configuration.
+Recover access to a RHEL 9 virtual machine through its console when an authorized administrator cannot use the existing root password. This revision uses Red Hat's RHEL 9 relabel procedure. For another release, obtain its matching recovery procedure before proceeding.
 
 ## Prerequisites
 
@@ -26,7 +26,7 @@ Recover access to a RHEL virtual machine through its console when an authorized 
 
 ### 2 Change the password
 
-The source provides this command sequence. Confirm the filesystem layout before using it:
+Confirm that the installed system is RHEL 9 and that `/sysroot` is its root filesystem before using this sequence:
 
 ```bash
 mount -o remount,rw /sysroot
@@ -36,25 +36,22 @@ passwd
 
 Enter the new password only at the password prompt. Stop if the root filesystem is unavailable, cannot be mounted, or is not the expected system.
 
-### 3 Complete SELinux recovery
+### 3 Schedule SELinux relabeling
 
-The source next provides:
+After `passwd` reports success, remain inside the changed-root environment. Create the relabel marker there:
 
 ```bash
-load_policy -i
-chcon -t shadow_t /etc/shadow
+touch /.autorelabel
 ```
 
-**Review required:** Confirm whether this sequence is supported for the installed RHEL release. It is not an instruction to apply universally. The approved procedure may require filesystem relabeling or other release-specific steps.
-
-The source also suggests temporarily disabling SELinux enforcement after an authentication-token error. Do not apply that workaround automatically. Such errors have multiple possible causes. Diagnose the filesystem state, permissions, security context, and release-specific recovery requirements, then escalate if the approved procedure does not resolve the error.
+Stop if the marker cannot be created. Do not substitute the original note's `load_policy` and `chcon` commands or disable enforcement to work around a password error. Diagnose filesystem, permission, and recovery-state errors first.
 
 ### 4 Resume normal boot
 
-1. Exit the recovery environment as directed by the approved release-specific procedure. The source uses `Ctrl+D`.
-2. Reboot if required.
-3. Confirm that `rd.break` is absent from the normal boot command line. Remove it if it was persistently added.
-4. Allow any required relabel operation to finish without interruption.
+1. Run `exit` to leave the changed-root environment.
+2. Run `exit` again to leave the recovery shell and continue boot.
+3. Wait for relabeling to finish. It can take time, and the system can restart as part of the process. Do not interrupt it.
+4. Confirm that normal boot no longer uses `rd.break`. A one-time GRUB edit does not require changing the saved boot configuration.
 
 ## Validate
 

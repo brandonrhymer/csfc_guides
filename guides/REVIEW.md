@@ -1,5 +1,9 @@
 # Review requirements
 
+## Current phase
+
+The owner requested content development and organization first. Testing and full technical review are deferred. The items below define work for that later phase; they are not completed acceptance evidence. No guide commands have been executed against a target system.
+
 ## Distribution gate
 
 These drafts have been screened for obvious secrets and environment identifiers. That screening is not a security audit, classification determination, declassification action, or public-release approval. The owner confirmed that the appropriate authority cleared the sanitized drafts for public release. This does not establish that the original source material is cleared or that the procedures have been technically validated.
@@ -24,26 +28,28 @@ The collection contains eight guides: RHEL root recovery, Cisco ASA updates, Cla
 
 | Guide | Required resolution |
 | --- | --- |
-| RHEL root recovery | Confirm RHEL version, bootloader access, filesystem state, encryption requirements, and supported SELinux relabel/recovery procedure. Source advice to temporarily disable enforcement is retained only as a review warning, not an instruction. Confirm the backup or snapshot policy. |
+| RHEL root recovery | Confirm RHEL version, bootloader access, filesystem state, encryption requirements, and supported SELinux relabel/recovery procedure. The draft now uses the documented RHEL 9 relabel route. The source's policy-load and manual-context commands are not operational steps. Do not disable enforcement to bypass an error. Confirm the backup or snapshot policy. |
 | Cisco ASA | Verify model, running release, supported upgrade path, package integrity, command modes, high-availability sequence, boot selection, and rollback. Source checksum values are not an authority. A fixed version is not a recommendation to install that version. |
-| ClamAV | Confirm the active database directory, engine compatibility, permitted update mechanism, ownership, service behavior, and how the engine reloads the new databases. The source contains no validation method. |
+| ClamAV | Confirm the active database directory, engine compatibility, permitted update mechanism, ownership, service behavior, and how the engine reloads the new databases. The draft now includes planned configuration, database-signature, reload, and scan checks. They have not been performed. |
 | CPU Ready | Validate units, sampling interval, vCPU normalization, and workload symptoms before using thresholds. Determine whether virtual socket topology is relevant to this ESXi and guest configuration. The proposed one-socket change is not a general fix or a licensing assurance. |
 | ESXi | Resolve the mismatch between the displayed offline depot ZIP and a dialog requesting a VIB. Confirm the supported update method for the exact host release and hardware, maintenance requirements, compatibility, and rollback. Do not execute the source sequence with the depot ZIP on assumption. |
 | GPO | Confirm the package, backup/import format, target OU, inheritance, security filtering, conflicts, test scope, and rollback. An imported GPO has no intended effect until its scope is correctly established and policy refresh occurs. |
-| GP 2.0 | Identify the product, operating system, approved test destination, service unit, and CLI. The source provides three commands but no expected output, interpretation, or escalation criteria. |
-| LDAPS | Repair the unclosed string in the source command, then validate the certificate requirements, names, trust chain, EKU, lifetime, private-key handling, and service selection. A locally created self-signed certificate alone does not establish a working, trusted LDAPS service. |
+| GP 2.0 | Identify the product, operating system, approved test destination, service unit, and CLI. The source provides three commands but no expected output, interpretation, or escalation criteria. Those product-specific inputs remain missing; do not guess them. |
+| LDAPS | The source string has been repaired. In the later review, validate the certificate requirements, names, trust chain, EKU, lifetime, private-key handling, and service selection. A locally created self-signed certificate alone does not establish a working, trusted LDAPS service. |
 
 ## Editorial and technical changes
 
 - Added scope, approval gates, prerequisites, validation, rollback or escalation prompts, and completion records. These are review safeguards added during conversion, not claims that the original notes contained them.
 - Reframed the CPU Ready guide as an investigation with a conditional topology proposal. Removed the unsupported assurances that the change will lower CPU Ready or cannot affect licensing.
-- Preserved the RHEL recovery command sequence while marking SELinux handling as version dependent. Did not prescribe the source's blanket enforcement-disable workaround.
+- Scoped the recovery procedure to RHEL 9 and used the relabel-marker flow. Removed the original policy-load and manual-context sequence from the operational steps. The enforcement-disable workaround is not prescribed.
 - Separated ASA transfer, integrity verification, boot configuration, save, and reload into distinct stages. The old boot entry must not be removed without an approved rollback plan.
-- Preserved the ESXi UI sequence only as a review reference. The package-format mismatch remains unresolved.
+- Preserved the ESXi UI sequence only as a review reference. Added an offline-depot profile-listing example and a warning that profile update and install are different operations. The host-specific update method remains unresolved.
 - Corrected the LDAP example's missing closing quote and parameterized its duration and label. The example remains incomplete as a deployment design and requires PKI review.
+- Added planned ClamAV database and running-service checks, a CPU Ready conversion example, ASA platform boundaries, GPO import and rollback cautions, and an LDAPS client test description. These are documentation additions, not test results.
 - Replaced missing-image references with text. This is a text-only conversion, not a visually equivalent reproduction.
+- Added a root entry point and contribution guidance. Script-specific documentation remains with the script in the scripts repository.
 
-## Acceptance checklist
+## Acceptance checklist for the later review phase
 
 - [ ] Technical owner identifies supported product versions and verifies each procedure against current vendor guidance.
 - [ ] Technical owner tests the procedure in an approved non-production environment.

@@ -1,10 +1,10 @@
 # Update Cisco ASA software
 
-**Status:** Technical and release review required. An ASA reload can interrupt connectivity. Do not execute this draft without an approved device-specific upgrade and rollback plan.
+**Status:** Technical review draft. Lab validation required. An ASA reload can interrupt connectivity. Do not execute this draft without an approved device-specific upgrade and rollback plan.
 
 ## Scope
 
-Stage an approved ASA image, copy it to device storage, verify it, select it for boot, and validate the device after the approved reload. The source uses a TFTP server and the ASA CLI.
+Stage an approved ASA image, copy it to device storage, verify it, select it for boot, and validate the device after the approved reload. The source uses a TFTP server and the ASA CLI. Its multi-image boot-order example applies only to a platform that supports that behavior. Firepower platforms can use different image activation rules, including a single boot image; some are managed through FXOS. Select the matching platform section in Cisco's upgrade guide before using any change command below.
 
 ## Prerequisites
 
@@ -47,7 +47,7 @@ Confirm that `disk0:` is the correct filesystem on this device. Compare the resu
 Record the current selection:
 
 ```text
-show running-config boot
+show running-config boot system
 ```
 
 After the approved change owner confirms the boot order and rollback plan, configure the new image:
@@ -81,11 +81,11 @@ Do not reload if the configuration, image, integrity check, new-image boot prior
 
 ## 5 Validate
 
-The source checks:
+For a platform that supports these commands, check:
 
 ```text
 show version
-show boot
+show bootvar
 ```
 
 Confirm that the intended release booted and the saved boot settings are correct. Validate interfaces, routing, permitted traffic, management access, and failover or cluster health as applicable. Use the approved rollback plan if validation fails.
@@ -93,5 +93,10 @@ Confirm that the intended release booted and the saved boot settings are correct
 ## Completion record
 
 Record the approved image, before-and-after versions, integrity-check result, validation outcome, and exceptions in the authorized change record. Do not copy credentials or unrestricted device logs into this guide.
+
+## References for technical review
+
+- [Cisco ASA upgrade procedures](https://www.cisco.com/c/en/us/td/docs/security/asa/upgrade/asa-upgrade/asa-appliance-asav.html) distinguish platforms, image activation behavior, and high-availability sequences.
+- [Cisco show bootvar command](https://www.cisco.com/c/en/us/td/docs/security/asa/asa-cli-reference/S/asa-command-ref-S/show-b-to-show-cq-commands.html) explains saved and current boot variables.
 
 [Return to guide index](../README.md)

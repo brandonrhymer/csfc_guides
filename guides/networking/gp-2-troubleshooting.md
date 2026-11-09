@@ -1,6 +1,6 @@
 # Run GP 2.0 troubleshooting checks
 
-**Status:** Incomplete source. Product-owner and release review required before use.
+**Status:** Incomplete source. Product identification and lab validation required before use.
 
 ## Scope
 
@@ -35,6 +35,10 @@ sudo <SERVICE_CLI> link show
 ```
 
 Run only after the executable and subcommand are verified for the installed product. Use elevated privileges only when required and authorized.
+
+## Validate and interpret
+
+There is no product-specific pass/fail result yet. Record the command result, time, and observed symptom without treating successful ICMP as proof of application health. Do not invent service states or link-state meanings. The product owner must supply expected results and escalation criteria before this becomes an operational runbook.
 
 ## Record and escalate
 

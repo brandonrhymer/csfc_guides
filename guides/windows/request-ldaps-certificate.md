@@ -1,6 +1,6 @@
 # Review an LDAPS certificate request
 
-**Status:** Incomplete source. PKI, directory-service, technical, and release review required before deployment.
+**Status:** Incomplete source. PKI and directory-service approval, followed by lab validation, required before deployment.
 
 ## Scope
 
@@ -12,8 +12,8 @@ The original command has an unclosed quoted string. The example below repairs th
 
 - Confirm the intended relying service and domain controller names.
 - Have the PKI owner determine whether to use an approved certificate authority or an explicitly permitted self-signed certificate.
-- Confirm required subject names, DNS names, enhanced key usage, key algorithm and length, private-key properties, validity period, and renewal process.
-- Confirm the required certificate store and directory-service selection behavior for the supported Windows Server release.
+- Confirm the controller's Active Directory fully qualified domain name (FQDN) and Server Authentication enhanced key usage (OID `1.3.6.1.5.5.7.3.1`), key algorithm and length, private-key properties, validity period, and renewal process.
+- Confirm the required certificate store (Local Computer Personal or the NTDS service store) and directory-service selection behavior for the supported Windows Server release.
 - Define client trust, deployment, validation, and rollback. Do not assume a friendly name selects a certificate for LDAPS.
 
 ## Source example for review
@@ -49,6 +49,8 @@ The approved deployment procedure must verify:
 - Correct certificate selection by the directory service.
 - Successful LDAPS connection and authentication under the organization's test procedure.
 - Renewal, rollback, and removal of an incorrect certificate without disrupting other services.
+
+After approved deployment, test from an intended client with `ldp.exe`: select **Connection > Connect**, enter the approved controller FQDN, use port **636**, and select **SSL**. Use **3269** only when testing the global catalog service. Successful RootDSE output checks the LDAPS connection, not application authorization. Test the required bind and application operation separately. Confirm which certificate the service presents and whether the intended clients trust it.
 
 Do not weaken certificate validation to make the connection succeed. Do not export a private key or distribute certificate material without the required authorization.
 

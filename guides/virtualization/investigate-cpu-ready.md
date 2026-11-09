@@ -1,6 +1,6 @@
 # Investigate high CPU Ready
 
-**Status:** Technical and release review required. The source's proposed virtual-socket change is not a validated general fix.
+**Status:** Technical review draft. Lab validation required. The source's proposed virtual-socket change is not a validated general fix.
 
 ## Scope
 
@@ -26,6 +26,12 @@ CPU Ready can reflect several scheduling and workload conditions. A physical hos
 6. Correlate the readings with the reported workload symptoms.
 
 **Threshold review:** The source uses 5% as an action threshold and 0–2% as an ideal range. These are unvalidated source targets, not universal limits. Do not compare a millisecond summation, a VM aggregate, and a per-vCPU percentage as if they were equivalent. Confirm the metric interpretation and deployment-specific threshold before deciding to act.
+
+### Convert a summation counter
+
+For a CPU Ready summation value measured in milliseconds, divide it by the sample duration in milliseconds and multiply by 100. Use the actual interval for the selected chart.
+
+For example, 800 ms over 20 seconds is `800 / (20 * 1000) * 100 = 4%`. If that value is the sum across four vCPUs, the average is 1% per vCPU. Do not divide a per-vCPU counter again, and inspect individual vCPUs because an average can hide a busy vCPU.
 
 ## 2 Record the current settings
 

@@ -1,6 +1,6 @@
 # Review an ESXi host update
 
-**Status:** Blocked for operational use pending package-format and update-method review. Technical and release approval required.
+**Status:** Blocked for operational use pending package-format and update-method review. Technical approval and lab validation required.
 
 ## Scope
 
@@ -32,6 +32,18 @@ The sequence below preserves the source's intended navigation. It is not authori
 5. Select **Manage > Packages > Install update**.
 6. Compare the dialog's accepted package type with the actual file. Stop if they do not match or support is uncertain.
 7. Only after the update method is verified and all prerequisites are satisfied, follow the approved procedure for installation and any reboot.
+
+## Resolve the update method
+
+For an offline depot, Broadcom documents a profile-based command-line method. The following command lists its profiles without applying an update:
+
+```bash
+esxcli software sources profile list -d '/vmfs/volumes/<DATASTORE>/<FOLDER>/<OFFLINE_DEPOT>.zip'
+```
+
+Use this only in an approved management session with the verified local depot. A successful listing does not establish compatibility. The platform owner must choose the supported image profile and method for this host or its managed cluster.
+
+The `profile update` and `profile install` operations are not equivalent. An install can remove packages that are absent from the selected profile. Do not replace one operation with the other or bypass signature, dependency, or hardware checks to force success. The final change command remains in the site-specific approved procedure, not this unresolved source example.
 
 ## Validate
 

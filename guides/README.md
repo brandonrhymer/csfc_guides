@@ -1,8 +1,8 @@
 # Technical guides
 
-Eight Markdown guides converted from the supplied notes. These are review drafts. Environment identifiers, credentials references, source-specific download links, and screenshots are excluded. Commands are documentation only and have not been executed or tested.
+Eight Markdown guides developed from the supplied notes. The current phase is content development and organization. Testing and full technical review are deferred. These remain procedure drafts. Environment identifiers, credentials references, source-specific download links, and screenshots are excluded. Commands are documentation only and have not been executed or tested.
 
-## Review status
+## Draft status
 
 Public release of these sanitized drafts was confirmed by the owner. Do not use a guide to change a production system until the responsible technical owner has approved and tested its procedure. Redaction alone does not establish classification or release status.
 
@@ -10,7 +10,7 @@ Read [Review requirements](REVIEW.md) before using the guides. Replace angle-bra
 
 ## Linux
 
-- [Recover a RHEL root password](linux/recover-rhel-root-password.md)
+- [Recover a RHEL 9 root password](linux/recover-rhel-root-password.md)
 - [Update ClamAV definitions offline](linux/update-clamav-definitions.md)
 
 ## Networking
@@ -31,6 +31,6 @@ Read [Review requirements](REVIEW.md) before using the guides. Replace angle-bra
 ## Document conventions
 
 - Each guide states its scope, prerequisites, procedure, validation, and unresolved review items.
-- Source procedures are retained where they can be expressed without site-specific details. Technical cautions and validation checks added during conversion are identified in the review record.
+- Source procedures are developed without site-specific details. Added safeguards, references, and planned validation steps do not mean that operational testing has occurred.
 - Commands and filenames in angle brackets are placeholders, not literal input.
 - The original source files and review images are not part of this collection.

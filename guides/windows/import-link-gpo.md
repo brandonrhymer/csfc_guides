@@ -1,6 +1,6 @@
 # Import and link a Group Policy Object
 
-**Status:** Technical and release review required. Incorrect scope can apply policy to unintended systems.
+**Status:** Technical review draft. Lab validation required. Incorrect scope can apply policy to unintended systems.
 
 ## Scope
 
@@ -29,7 +29,7 @@ Import an approved policy backup into a new Group Policy Object, then link it to
 4. Right-click that GPO and select **Import Settings** if available for the installed management tools.
 5. Follow the wizard, selecting the correct backup location and policy backup.
 6. Review any migration-table or reference-mapping requirements before completing the import.
-7. Inspect the imported settings. Do not link the GPO until the technical owner approves the scope.
+7. Confirm the import summary reports success. Import copies policy settings, not the source GPO's links or security filtering. Inspect the imported settings. Do not link the GPO until the technical owner approves the scope.
 
 ## 3 Link to the approved scope
 
@@ -46,10 +46,14 @@ The source ends after linking. Before operational use, define how to:
 
 - Verify the GPO link, scope, and settings.
 - Confirm application to the intended test systems after policy refresh.
-- Check resultant policy and application behavior.
+- Use Group Policy Results for the intended test user and computer to check resultant policy and application behavior. Verify the imported GPO is applied rather than denied by filtering. Keep reports in the approved environment.
 - Confirm that unintended systems were not affected.
-- Roll back the link or settings if acceptance criteria fail.
+- Roll back the link or settings if acceptance criteria fail. Removing a link does not guarantee that every previously applied setting is undone. Test the setting-specific rollback and policy refresh before production use.
 
 Record the package version, approved scope, validation outcome, and exceptions in the authorized change record. Keep actual domain and organizational-unit identifiers out of this collection.
+
+## Reference for technical review
+
+[Microsoft guidance on GPO backup and import](https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/group-policy/group-policy-backup-restore) describes backup selection, import results, and migration tables.
 
 [Return to guide index](../README.md)
