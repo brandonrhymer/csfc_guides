@@ -59,8 +59,8 @@ The source does not define post-update validation. The technical owner must supp
 
 [Broadcom guidance on patching an ESXi host using the command line](https://knowledge.broadcom.com/external/article/343840/patching-esxi-host-using-command-line.html) describes a profile-based workflow for an offline depot. It is a review reference, not a replacement procedure tailored to this host. Confirm the exact profile, release applicability, backup, and maintenance requirements before use.
 
-## Conversion note
+## Guide limitations
 
-All five embedded screenshots were omitted. Some contain a real host identifier and inventory details. The screenshots have not been cleared for release. The six text instructions and their intended sequence are represented above, with the package-format blocker made explicit.
+This guide is text-only. Source screenshots are not cleared for release. The offline-depot ZIP and VIB mismatch remains a blocker for operational use.
 
 [Return to guide index](../README.md)

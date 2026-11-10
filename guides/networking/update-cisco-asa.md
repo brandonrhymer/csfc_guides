@@ -10,7 +10,7 @@ Stage an approved ASA image, copy it to device storage, verify it, select it for
 
 - Confirm the ASA model, running release, supported upgrade path, image family, storage capacity, and licensing requirements.
 - For a failover pair or cluster, obtain the supported upgrade sequence. This source is not a high-availability runbook.
-- Obtain the approved image and authoritative integrity value. The source's private download link and checksum values are omitted.
+- Obtain the approved image and authoritative integrity value from a verified source.
 - Back up the configuration and record the current boot settings through the approved process.
 - Confirm console or out-of-band recovery access, maintenance impact, and rollback.
 - Use TFTP only if approved for this network. It does not provide authentication or encryption.

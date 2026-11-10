@@ -6,7 +6,7 @@
 
 The source proposes creating a self-signed certificate on a domain controller using elevated PowerShell. It does not describe a complete certificate request, issuance, trust, service-selection, or LDAPS-validation process.
 
-The original command has an unclosed quoted string and leaves the cryptographic provider unspecified. The example below repairs the syntax, removes the source-specific label, and requires approved provider and key-specification inputs. It is a review example, not a verified production configuration.
+The example requires approved cryptographic-provider and key-specification inputs. It is a review example, not a verified production configuration.
 
 ## Prerequisites
 

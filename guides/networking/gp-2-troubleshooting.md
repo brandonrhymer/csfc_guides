@@ -8,7 +8,7 @@ The source contains three Linux-style diagnostic commands. It does not identify 
 
 ## Prerequisites
 
-Confirm the product, operating system, approved test destination, service unit, CLI executable, required privileges, and escalation owner. Source-specific identifiers have been replaced with placeholders.
+Confirm the product, operating system, approved test destination, service unit, CLI executable, required privileges, and escalation owner. Resolve placeholders only in an approved operational copy.
 
 ## Checks
 
