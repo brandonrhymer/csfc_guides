@@ -15,7 +15,7 @@ Each guide needs:
 - A clear title and status.
 - Scope, supported versions, and prerequisites.
 - Numbered actions with expected results and stop conditions.
-- Validation and rollback or escalation requirements for the later test phase.
+- Validation and rollback or escalation requirements.
 - Vendor references when available.
 - A link back to the guide index.
 
@@ -31,6 +31,6 @@ If a secret was exposed, stop publication and follow the owner's incident and cr
 
 ## Separate content from approval
 
-The current phase develops and organizes the repository content. Testing and full technical review are deferred by the owner. Do not add passing-test claims or describe these drafts as production-ready.
+The guides remain untested procedure drafts. Do not add passing-test claims or describe a guide as production-ready without supporting validation and operational approval.
 
-Record missing inputs in the guide and the [review requirements](guides/REVIEW.md). In the later review phase, the responsible owners must confirm product applicability, expected results, maintenance impact, rollback, and release status before operational use.
+Record missing inputs in the guide and the [review requirements](guides/REVIEW.md). Before operational use, the responsible owners must confirm product applicability, expected results, maintenance impact, rollback, and release status.
