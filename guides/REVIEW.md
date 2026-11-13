@@ -1,59 +1,32 @@
 # Review requirements
 
-## Current phase
+## Operational status
 
-The owner requested content development and organization first. Testing and full technical review are deferred. The items below define work for that later phase; they are not completed acceptance evidence. No guide commands have been executed against a target system.
+These guides are procedure drafts, not approved operational runbooks. No target-system testing has been performed. The requirements below must be resolved before operational use; they are not completed acceptance evidence. See the [guide index](README.md) for the eight guides.
 
-## Distribution gate
+## Release boundaries
 
-These drafts have been screened for obvious secrets and environment identifiers. That screening is not a security audit, classification determination, declassification action, or public-release approval. The owner confirmed that the appropriate authority cleared the sanitized drafts for public release. This does not establish that the original source material is cleared or that the procedures have been technically validated.
+Public release of sanitized drafts does not establish technical validation, operational approval, or release clearance for original source material. Redaction alone is not a security audit, classification determination, declassification action, or public-release approval.
 
-## Guide collection
-
-The collection contains eight guides: RHEL root recovery, Cisco ASA updates, ClamAV definitions, CPU Ready investigation, ESXi update review, GPO import and linking, GP 2.0 troubleshooting, and LDAPS certificate review. See the [guide index](README.md) for links. The source-provenance record is maintained separately and is not included in this collection.
-
-## Redactions and omissions
-
-- Removed the source-specific ASA download URL, fixed image version, checksum values, environment labels, and management-address convention. The appropriate software image and checksum must come from an approved, verified source.
-- Generalized the removable-media staging path and removed instructions to retrieve credentials from management notes.
-- Replaced GPO environment, domain, and organizational-unit references with placeholders. Removed the source's web domain and retained the named public publisher.
-- Replaced the literal connectivity-test address and source-specific service and CLI names in the GP 2.0 note with placeholders. Product scope remains unresolved.
-- Removed the source-specific certificate friendly name.
-- Omitted all five embedded screenshots from the three-page ESXi RTF. Some reveal a real host identifier and inventory details. The text workflow is preserved with an explicit package-format blocker. No screenshot sanitization or release approval is implied.
-- Omitted references to missing screenshots in the RHEL and ClamAV notes. Those images were not supplied with the text files.
-- No literal passwords, authentication tokens, or private keys were observed in the text and five inspected screenshots. This limited observation is not proof that all sensitive content has been identified.
-- No original screenshots, embedded source metadata, logs, source download links, raw source files, or live environment hostnames, network addresses, or domain names are included in the draft collection. Public vendor documentation links may be included as review references.
+Replace site-specific placeholders only in an approved operational copy. Keep credentials, private keys, live environment identifiers, raw source files, source screenshots, logs, and environment-specific evidence out of this repository. Public vendor documentation links may be included as review references.
 
 ## Technical review required
 
 | Guide | Required resolution |
 | --- | --- |
-| RHEL root recovery | Confirm RHEL version, bootloader access, filesystem state, encryption requirements, and supported SELinux relabel/recovery procedure. The draft now uses the documented RHEL 9 relabel route. The source's policy-load and manual-context commands are not operational steps. Do not disable enforcement to bypass an error. Confirm the backup or snapshot policy. |
-| Cisco ASA | Verify model, running release, supported upgrade path, package integrity, command modes, high-availability sequence, boot selection, and rollback. Source checksum values are not an authority. A fixed version is not a recommendation to install that version. |
-| ClamAV | Confirm the active database directory, engine compatibility, permitted update mechanism, ownership, service behavior, and how the engine reloads the new databases. The draft now includes planned configuration, database-signature, reload, and scan checks. They have not been performed. |
+| RHEL root recovery | Confirm RHEL version, bootloader access, filesystem state, encryption requirements, and supported SELinux relabel/recovery procedure. This guide uses the RHEL 9 relabel-marker route. Do not substitute policy-load or manual-context commands, or disable enforcement to bypass an error. Confirm the backup or snapshot policy. |
+| Cisco ASA | Verify model, running release, supported upgrade path, package integrity, command modes, high-availability sequence, boot selection, and rollback. Obtain the image and authoritative integrity value from an approved, verified source. Do not treat a fixed version as an upgrade recommendation. Verify the new image's first-boot priority and preserve the approved fallback; do not remove the old boot entry without an approved rollback plan. |
+| ClamAV | Confirm the active database directory, engine compatibility, permitted update mechanism, ownership, service behavior, and how the engine reloads the new databases. Configuration, database-signature, reload, and scan checks are planned requirements, not completed tests. |
 | CPU Ready | Validate units, sampling interval, vCPU normalization, and workload symptoms before using thresholds. Determine whether virtual socket topology is relevant to this ESXi and guest configuration. The proposed one-socket change is not a general fix or a licensing assurance. |
-| ESXi | Resolve the mismatch between the displayed offline depot ZIP and a dialog requesting a VIB. Confirm the supported update method for the exact host release and hardware, maintenance requirements, compatibility, and rollback. Do not execute the source sequence with the depot ZIP on assumption. |
+| ESXi | Resolve the mismatch between an offline depot ZIP and a dialog requesting a VIB. Confirm the supported update method for the exact host release and hardware, maintenance requirements, compatibility, and rollback. Do not execute the UI sequence with the depot ZIP on assumption. Profile listing does not establish compatibility, and profile update and install are different operations. |
 | GPO | Confirm the package, backup/import format, target OU, inheritance, security filtering, conflicts, test scope, and rollback. An imported GPO has no intended effect until its scope is correctly established and policy refresh occurs. |
-| GP 2.0 | Identify the product, operating system, approved test destination, service unit, and CLI. The source provides three commands but no expected output, interpretation, or escalation criteria. Those product-specific inputs remain missing; do not guess them. |
-| LDAPS | The source string has been repaired. Provider and key specification are now explicit approved-design inputs because the original cmdlet defaults do not match the cited Schannel CSP workflow. Resolve the target-specific issuance method before use. In the later review, validate the certificate requirements, names, trust chain, EKU, lifetime, private-key handling, and service selection. A locally created self-signed certificate alone does not establish a working, trusted LDAPS service. |
+| GP 2.0 | Identify the product, operating system, approved test destination, service unit, and CLI. Expected output, interpretation, and escalation criteria remain unspecified. Those product-specific inputs must be supplied before use; do not guess them. |
+| LDAPS | Resolve the target-specific issuance method, cryptographic provider, and key specification before use. The cmdlet's default provider differs from the cited Schannel CSP workflow. Validate certificate requirements, names, trust chain, EKU, lifetime, private-key handling, and service selection under the approved PKI design. A locally created self-signed certificate alone does not establish a working, trusted LDAPS service. |
 
-## Editorial and technical changes
-
-- Added scope, approval gates, prerequisites, validation, rollback or escalation prompts, and completion records. These are review safeguards added during conversion, not claims that the original notes contained them.
-- Reframed the CPU Ready guide as an investigation with a conditional topology proposal. Removed the unsupported assurances that the change will lower CPU Ready or cannot affect licensing.
-- Scoped the recovery procedure to RHEL 9 and used the relabel-marker flow. Removed the original policy-load and manual-context sequence from the operational steps. The enforcement-disable workaround is not prescribed.
-- Separated ASA transfer, integrity verification, boot configuration, save, and reload into distinct stages. The old boot entry must not be removed without an approved rollback plan.
-- Preserved the ESXi UI sequence only as a review reference. Added an offline-depot profile-listing example and a warning that profile update and install are different operations. The host-specific update method remains unresolved.
-- Corrected the LDAP example's missing closing quote and parameterized its duration and label. Added explicit provider and key-specification inputs, documented the mismatch with the cited Schannel CSP workflow, and required an approved target-specific issuance design before use. The example remains incomplete as a deployment design and requires PKI review.
-- Added planned ClamAV database and running-service checks, a CPU Ready conversion example, ASA platform boundaries, GPO import and rollback cautions, and an LDAPS client test description. These are documentation additions, not test results.
-- Replaced missing-image references with text. This is a text-only conversion, not a visually equivalent reproduction.
-- Added a root entry point and contribution guidance. Script-specific documentation remains with the script in the scripts repository.
-
-## Acceptance checklist for the later review phase
+## Acceptance checklist
 
 - [ ] Technical owner identifies supported product versions and verifies each procedure against current vendor guidance.
 - [ ] Technical owner tests the procedure in an approved non-production environment.
 - [ ] Change owner defines maintenance impact, backup, rollback, verification, and escalation.
-- [x] Owner confirmed appropriate-authority approval for public release of the sanitized drafts.
-- [ ] Reviewer confirms no identifiers or sensitive material were reintroduced when placeholders were filled.
-- [x] Repository owner requested the sanitized guides in the appropriate repositories.
+- [ ] Reviewer confirms the release status of any new material and checks content and metadata for sensitive information.
+- [ ] Reviewer confirms that operational placeholders are resolved in the approved copy without committing live identifiers or sensitive material to this repository.
