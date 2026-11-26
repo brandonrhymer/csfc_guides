@@ -1,6 +1,6 @@
 # Technical guides
 
-Eight Markdown guides for system administration and troubleshooting. These remain procedure drafts that require technical review and lab validation. Environment identifiers, credentials references, source-specific download links, and screenshots are excluded. Commands are documentation only and have not been executed or tested.
+Twenty-one Markdown guides for system administration and troubleshooting. These remain procedure drafts that require target-specific technical review and lab validation. Environment identifiers, credentials references, source-specific download links, and screenshots are excluded. Commands are documentation only and have not been executed or tested.
 
 ## Draft status
 
@@ -12,6 +12,10 @@ Read [Review requirements](REVIEW.md) before using the guides. Replace angle-bra
 
 - [Recover a RHEL 9 root password](linux/recover-rhel-root-password.md)
 - [Update ClamAV definitions offline](linux/update-clamav-definitions.md)
+
+## Configuration Manager
+
+The [MECM operating guide index](mecm/README.md) links twelve core guides and a conditional PKI guide. It maps architecture, access, targeting, client settings and recovery, content, patching, applications, client lifecycle, reporting, site maintenance, inventory and certificates to operator outcomes. It also links installation and script-specific procedures in the toolkit repository.
 
 ## Networking
 
@@ -34,3 +38,4 @@ Read [Review requirements](REVIEW.md) before using the guides. Replace angle-bra
 - Procedures use placeholders for site-specific details. Safeguards, references, and planned validation steps are requirements, not evidence of operational testing.
 - Commands and filenames in angle brackets are placeholders, not literal input.
 - The original source files and review images are not part of this collection.
+
